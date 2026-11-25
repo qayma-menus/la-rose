@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#8C583A" />
+    <title>حلواني لاروز La Rose — المنيو والطلب أونلاين | كوم حمادة • مركز بدر • السادات</title>
+    <meta
+      name="description"
+      content="الحلو هيكمل بـ لاروز — تصفح منيو حلواني لاروز الكامل (الجاتوهات، التورت، القشطوطة، التشيز كيك، وطلبات المواسم) واطلب مباشرة عبر واتساب."
+    />
+    <meta property="og:title" content="حلواني لاروز La Rose — الحلو هيكمل بـ لاروز" />
+    <meta
+      property="og:description"
+      content="لاروز معنى السعادة — تصفح المنيو الكامل بالأسعار واطلب توصيل أو استلام من فروع كوم حمادة ومركز بدر والسادات."
+    />
+    <meta property="og:url" content="https://la-rose.qayma.me/" />
+    <meta property="og:image" content="https://la-rose.qayma.me/assets/logo-lockup.png" />
+    <meta property="og:locale" content="ar_EG" />
+    <link rel="icon" href="./assets/logo-square.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alexandria:wght@700;800;900&family=Cairo:wght@500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div id="table-banner" class="hidden"></div>
+
+    <header id="header-root" class="site-header"></header>
+
+    <div class="sticky-controls">
+      <div class="container">
+        <div class="search-row">
+          <div class="search-box">
+            <input
+              type="text"
+              id="search-input"
+              placeholder="ابحث في منيو لاروز.. (قشطوطة، تورتة، جاتوه، تشيز كيك، مولتن...)"
+            />
+          </div>
+          <button type="button" id="btn-popular" class="btn-popular">
+            الأكثر طلباً
+          </button>
+        </div>
+        <nav id="cat-strip" class="cat-strip" aria-label="أقسام المنيو"></nav>
+      </div>
+    </div>
+
+    <main id="menu-root" class="container menu-main"></main>
+
+    <footer id="footer-root" class="site-footer"></footer>
+
+    <div id="floating-cart-root" class="floating-cart hidden"></div>
+
+    <div id="modals-root"></div>
+
+    <script src="./data.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

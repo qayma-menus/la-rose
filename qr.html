@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>استوديو طباعة الـ QR — حلواني لاروز La Rose</title>
+    <link rel="icon" href="./assets/logo-square.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alexandria:wght@700;800;900&family=Cairo:wght@600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <style>
+      .qr-toolbar {
+        background: #ffffff;
+        border-bottom: 1px solid var(--border-subtle);
+        padding: 16px 0;
+      }
+      .qr-bar-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .patisserie-qr-card {
+        max-width: 430px;
+        margin: 34px auto;
+        background: #ffffff;
+        color: var(--ink);
+        border: 2px solid var(--brand-bronze);
+        border-radius: 26px;
+        box-shadow: 0 16px 40px rgba(140, 88, 58, 0.12);
+        padding: 30px 26px;
+        text-align: center;
+      }
+      .patisserie-qr-logo {
+        width: 140px;
+        height: auto;
+        object-fit: contain;
+        margin: 0 auto;
+      }
+      .patisserie-qr-frame {
+        background: var(--paper-bg);
+        border: 1px solid #dcc7b8;
+        border-radius: 20px;
+        padding: 18px;
+        max-width: 245px;
+        margin: 20px auto 0 auto;
+      }
+      @media print {
+        .patisserie-qr-card {
+          box-shadow: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="qr-toolbar no-print">
+      <div class="container">
+        <div class="qr-bar-row">
+          <div style="display:flex;align-items:center;gap:10px">
+            <a href="./index.html" class="btn-outline-paper">العودة للمنيو</a>
+            <div>
+              <strong style="font-family:var(--font-display);font-size:16px;color:var(--brand-primary)">
+                كارت الـ QR للكاشير والعلب المطبوعة — حلواني لاروز
+              </strong>
+              <div style="font-size:11px;color:var(--ink-muted);font-weight:700">
+                مناسب للكاشير، واجهة الفروع، وملصقات علب الحلويات والتورت
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:8px">
+            <button type="button" id="btn-dl-png" class="btn-outline-paper">
+              تحميل صورة QR (PNG)
+            </button>
+            <button type="button" onclick="window.print()" class="btn-add" style="padding:8px 18px">
+              طباعة الكارت (A4)
+            </button>
+          </div>
+        </div>
+
+        <div class="qr-bar-row" style="margin-top:12px">
+          <span style="font-size:12px;font-weight:800;color:var(--brand-primary)">رابط المنيو المدمج في الكود:</span>
+          <div style="display:flex;gap:8px;flex:1;max-width:480px">
+            <input
+              type="url"
+              dir="ltr"
+              id="base-url-input"
+              class="text-input"
+              style="font-family:monospace;font-size:12px"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main class="container" id="qr-canvas-root"></main>
+
+    <script src="./data.js"></script>
+    <script src="./vendor/qr.js"></script>
+    <script>
+      (function () {
+        var R = window.RESTAURANT_DATA;
+        var C = window.CREDITS_CONFIG || {};
+        var urlInput = document.getElementById("base-url-input");
+
+        var defaultUrl = window.location.href
+          .split("?")[0]
+          .replace(/\/qr\.html$/, "/");
+        urlInput.value = defaultUrl;
+
+        function render() {
+          var baseUrl = urlInput.value.trim() || defaultUrl;
+          var svg = window.QaymaQR.toSVG(baseUrl, {
+            margin: 2,
+            dark: "#2C1D16",
+            light: "#FFFFFF",
+          });
+
+          document.getElementById("qr-canvas-root").innerHTML =
+            '<div class="patisserie-qr-card">' +
+            '  <img class="patisserie-qr-logo" src="./assets/logo-lockup.png" alt="' + R.name + '">' +
+            '  <div style="margin-top:8px"><span class="identity-tagline">' + R.tagline + '</span></div>' +
+            '  <div class="patisserie-qr-frame">' +
+            '    <div style="background:#fff;border-radius:12px;padding:8px">' + svg + '</div>' +
+            '    <div style="margin-top:10px;font-size:12.5px;font-weight:900;color:var(--brand-primary)">امسح الكود لتصفح المنيو والطلب أونلاين</div>' +
+            '  </div>' +
+            '  <div style="margin-top:16px;font-size:12px;font-weight:800;color:var(--ink-muted);line-height:1.8">' +
+            '    <div>كوم حمادة: <strong dir="ltr" style="color:var(--ink)">01013136213</strong></div>' +
+            '    <div>مركز بدر: <strong dir="ltr" style="color:var(--ink)">01091401408</strong></div>' +
+            '    <div>مدينة السادات: مول سايلو المنطقة التاسعة</div>' +
+            '  </div>' +
+            '  <div style="margin-top:14px;padding-top:10px;border-top:1px solid #ead9cc;font-size:10px;font-weight:700;color:var(--ink-muted)">تصميم وتطوير ' + (C.developerName || "م/ محمد عبدالستار") + '</div>' +
+            '</div>';
+        }
+
+        urlInput.addEventListener("input", render);
+        document.getElementById("btn-dl-png").addEventListener("click", function () {
+          var baseUrl = urlInput.value.trim() || defaultUrl;
+          var dataUrl = window.QaymaQR.toDataURL(baseUrl, {
+            width: 700,
+            margin: 2,
+            dark: "#2C1D16",
+            light: "#FFFFFF",
+          });
+          var a = document.createElement("a");
+          a.href = dataUrl;
+          a.download = "la-rose-menu-qr.png";
+          a.click();
+        });
+
+        render();
+      })();
+    </script>
+  </body>
+</html>
